@@ -4,8 +4,6 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'mecab/ext/version'
 
 Gem::Specification.new do |spec|
-  spec.add_dependency "activesupport", "~> 3.2.13"
-
   spec.name          = "mecab-ext"
   spec.version       = Mecab::Ext::VERSION
   spec.authors       = ["Taiki ONO"]
