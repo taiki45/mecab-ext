@@ -1,4 +1,4 @@
-module MeCab
+module Mecab
   module Ext
     class Node
       include Enumerable

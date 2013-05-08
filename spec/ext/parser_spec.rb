@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MeCab::Ext::Parser do
+describe Mecab::Ext::Parser do
   let(:tagger) { double("tagger") }
 
   %w(parseString parseNBestInit).each do |name|
