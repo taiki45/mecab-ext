@@ -1,6 +1,4 @@
-require "active_support/core_ext/module/delegation"
-
-module MeCab
+module Mecab
   module Ext
     class Parser
       attr_reader :__tagger__
@@ -16,29 +14,6 @@ module MeCab
 
       alias :parseToNode :parse
       alias :parse_to_node :parse
-    end
-
-    class Node
-      include Enumerable
-
-      def initialize(original)
-        @nodes = original
-      end
-
-      def each
-        while node = @nodes.next
-          yield node
-        end
-        self
-      end
-
-      def surfaces
-        each {|node| yield node.surface }
-      end
-
-      def features
-        each {|node| yield node.feature }
-      end
     end
   end
 end
