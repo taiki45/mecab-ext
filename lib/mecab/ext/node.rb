@@ -3,12 +3,12 @@ module Mecab
     class Node
       include Enumerable
 
-      def initialize(original)
-        @node = original
+      def initialize(generator)
+        @generator = generator
       end
 
       def each
-        node = @node
+        node = @generator.call
         while node
           yield node
           node = node.next
