@@ -1,7 +1,8 @@
-require "mecab/ext/version"
+require "MeCab"
+require "mecab/ext/parser"
 
-module Mecab
+module MeCab
   module Ext
-    # Your code goes here...
+    VERSION = "0.0.1"
   end
 end
