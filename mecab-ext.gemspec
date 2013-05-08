@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Mecab::Ext::VERSION
   spec.authors       = ["Taiki ONO"]
   spec.email         = ["taiks.4559@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Make mecab-ruby more handy for most of rubyist.}
+  spec.summary       = %q{extensions for mecab-ruby}
+  spec.homepage      = "https://github.com/taiki45/mecab-ext"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

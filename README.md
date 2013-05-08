@@ -1,10 +1,11 @@
-# Mecab::Ext
-
-TODO: Write a gem description
+# mecab-ext
+A handy extensions for mecab-ruby.
 
 ## Installation
+At first install `Mecab` and `mecab-ruby`.
+[See more detail](https://code.google.com/p/mecab/).
 
-Add this line to your application's Gemfile:
+Then this line to your application's Gemfile:
 
     gem 'mecab-ext'
 
@@ -18,7 +19,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+#TODO
+```
 
 ## Contributing
 
