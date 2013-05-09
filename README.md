@@ -1,4 +1,4 @@
-# mecab-ext
+# mecab-ext [![Build Status](https://travis-ci.org/taiki45/mecab-ext.png?branch=master)](https://travis-ci.org/taiki45/mecab-ext)
 A handy extensions for mecab-ruby.
 
 ## Installation
