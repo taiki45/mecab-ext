@@ -20,7 +20,29 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-#TODO
+# require with original ruby-mecab
+require "mecab/ext"
+
+# "Mecab" for this gem. Original takes "MeCab"
+Mecab #=> for this gem
+MeCab #=> for original ruby-mecab
+
+# Parse japanese text and get extented node instance
+nodes = Mecab::Ext::Parser.parse("テスト文章")
+nodes.class #=> Mecab::Ext::Node
+
+# Call Mecab::Ext::Node#each to get each MeCab::Node object
+nodes.each {|node| p node }
+
+# Extented node class has Enumerable methods
+nodes.map {|node| node.surface }
+nodes.select {|node| node.surface == "テスト" }
+
+# If you need only surfaces, call Mecab::Ext::Node#each_surface
+nodes.each_surface {|surface| p surface }
+
+# mecab-ext cuts beginning of line node and end of line node for handiness
+nodes.size #=> 2
 ```
 
 ## Contributing
