@@ -5,18 +5,22 @@ describe Mecab::Ext::Node do
   shared_context %{with MeCab::Node like mock which given "test string"}, mecab: :nodes do
     let(:first_node) do
       n = mock("node").tap {|o| o.stub(:surface).and_return("") }
+      n.stub(:feature).and_return("")
       n.tap {|o| o.stub(:next).and_return(second_node) }
     end
     let(:second_node) do
       n = mock("node").tap {|o| o.stub(:surface).and_return("test") }
+      n.stub(:feature).and_return("test feature")
       n.tap {|o| o.stub(:next).and_return(third_node) }
     end
     let(:third_node) do
       n = mock("node").tap {|o| o.stub(:surface).and_return("string") }
+      n.stub(:feature).and_return("string feature")
       n.tap {|o| o.stub(:next).and_return(fourth_node) }
     end
     let(:fourth_node) do
       n = mock("node").tap {|o| o.stub(:surface).and_return("") }
+      n.stub(:feature).and_return("")
       n.tap {|o| o.stub(:next).and_return(nil) }
     end
     let(:generator) { double("generator", call: first_node) }
@@ -82,6 +86,20 @@ describe Mecab::Ext::Node do
       it "yields each surface" do
         subject.each_surface {|surface| tests.push surface }
         expect(tests).to eq ["test", "string"]
+      end
+    end
+  end
+
+  describe "#each_feature" do
+    context %(with mecab nodes which given "test string"), mecab: :nodes do
+      it "yields 2 features" do
+        subject.each_feature {|feature| tests.push feature }
+        expect(tests).to have(2).features
+      end
+
+      it "yields each features" do
+        subject.each_feature {|feature| tests.push feature }
+        expect(tests).to eq ["test feature", "string feature"]
       end
     end
   end
