@@ -32,7 +32,9 @@ describe Mecab::Ext::Node do
 
   describe "#each" do
     context "with generator mock" do
-      let(:generator) { mock("generator").tap {|o| o.should_receive(:call).and_return(nil) } }
+      let(:generator) do
+        mock("generator").tap {|o| o.should_receive(:call).at_least(:once).and_return(nil) }
+      end
       subject { described_class.new(generator) }
 
       it "calls given generator's :call" do
@@ -41,6 +43,12 @@ describe Mecab::Ext::Node do
 
       it "returns self" do
         expect(subject.each {}).to equal subject
+      end
+
+      it "returns enumerable" do
+        Enumerable.instance_methods.each do |method_name|
+          expect(subject.each {}).to be_respond_to method_name
+        end
       end
     end
 

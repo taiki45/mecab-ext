@@ -1,19 +1,24 @@
 module Mecab
   module Ext
     class Node
-      include Enumerable
+
+      delegate *Enumerable.instance_methods, :each, to: :__enum__
+      attr_reader :__enum__
 
       def initialize(generator)
         @generator = generator
+        @__enum__ = to_enum
       end
 
-      def each
-        node = @generator.call
-        while node
-          node = node.next
-          yield node if node.respond_to?(:surface) && !node.surface.empty?
+      def to_enum
+        Enumerator.new do |y|
+          node = @generator.call
+          while node
+            node = node.next
+            y << node if node.respond_to?(:surface) && !node.surface.empty?
+          end
+          self
         end
-        self
       end
 
       def each_surface
