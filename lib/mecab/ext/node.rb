@@ -17,11 +17,11 @@ module Mecab
         self
       end
 
-      def surfaces
+      def each_surface
         each {|node| yield node.surface }
       end
 
-      def features
+      def each_feature
         each {|node| yield node.feature }
       end
     end

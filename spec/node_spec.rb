@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Mecab::Ext::Node do
 
-  shared_context %{with MeCab::Node like mock which given "test string"}, mecab: :node do
+  shared_context %{with MeCab::Node like mock which given "test string"}, mecab: :nodes do
     let(:first_node) do
       n = mock("node").tap {|o| o.stub(:surface).and_return("") }
       n.tap {|o| o.stub(:next).and_return(second_node) }
@@ -21,7 +21,10 @@ describe Mecab::Ext::Node do
     end
     let(:generator) { double("generator", call: first_node) }
     let(:tests) { Array.new }
+
+    subject { described_class.new(generator) }
   end
+
 
   describe "#each" do
     context "with generator mock" do
@@ -47,14 +50,12 @@ describe Mecab::Ext::Node do
         subject.each {}
       end
 
-      it " yields sub node" do
+      it "yields sub node" do
         subject.each {|test| expect(test).to equal node }
       end
     end
 
-    context "with mecab nodes", mecab: :node do
-      subject { described_class.new(generator) }
-
+    context "with mecab nodes", mecab: :nodes do
       it "yields nodes" do
         subject.each {|test| expect(test).to be_instance_of RSpec::Mocks::Mock }
       end
@@ -66,6 +67,21 @@ describe Mecab::Ext::Node do
 
       it %{yields nodes that each node have "test", "string", ""} do
         subject.each {|test| tests.push test.surface }
+        expect(tests).to eq ["test", "string", ""]
+      end
+    end
+  end
+
+
+  describe "#each_surface" do
+    context "with mecab nodes", mecab: :nodes do
+      it "yields 3 times" do
+        subject.each_surface {|surface| tests.push surface }
+        expect(tests).to have(3).yielded_items
+      end
+
+      it "yields each surface" do
+        subject.each_surface {|surface| tests.push surface }
         expect(tests).to eq ["test", "string", ""]
       end
     end
