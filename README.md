@@ -37,12 +37,13 @@ nodes.each {|node| p node }
 # Extented node class has Enumerable methods
 nodes.map {|node| node.surface }
 nodes.select {|node| node.surface == "テスト" }
+nodes.map {|n| n.surface }.join
 
 # If you need only surfaces, call Mecab::Ext::Node#each_surface
 nodes.each_surface {|surface| p surface }
 
 # mecab-ext cuts beginning of line node and end of line node for handiness
-nodes.size #=> 2
+nodes.count #=> 2
 ```
 
 ## Contributing
