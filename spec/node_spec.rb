@@ -55,7 +55,7 @@ describe Mecab::Ext::Node do
       end
     end
 
-    context "with mecab nodes", mecab: :nodes do
+    context %(with mecab nodes which given "test string"), mecab: :nodes do
       it "yields nodes" do
         subject.each {|node| expect(node).to be_instance_of RSpec::Mocks::Mock }
       end
@@ -73,7 +73,7 @@ describe Mecab::Ext::Node do
 
 
   describe "#each_surface" do
-    context "with mecab nodes", mecab: :nodes do
+    context %(with mecab nodes which given "test string"), mecab: :nodes do
       it "yields 2 times" do
         subject.each_surface {|surface| tests.push surface }
         expect(tests).to have(2).yielded_items
