@@ -57,17 +57,16 @@ describe Mecab::Ext::Node do
 
     context "with mecab nodes", mecab: :nodes do
       it "yields nodes" do
-        subject.each {|test| expect(test).to be_instance_of RSpec::Mocks::Mock }
+        subject.each {|node| expect(node).to be_instance_of RSpec::Mocks::Mock }
       end
 
-      it "yields 3 times" do
-        subject.each {|test| tests.push test }
-        expect(tests).to have(3).yielded_items
+      it "yields 2 times" do
+        subject.each {|node| tests.push node }
+        expect(tests).to have(2).yielded_items
       end
 
-      it %{yields nodes that each node have "test", "string", ""} do
-        subject.each {|test| tests.push test.surface }
-        expect(tests).to eq ["test", "string", ""]
+      it "yields nodes which respond to :surface" do
+        subject.each {|node| expect(node).to be_respond_to :surface }
       end
     end
   end
@@ -75,14 +74,14 @@ describe Mecab::Ext::Node do
 
   describe "#each_surface" do
     context "with mecab nodes", mecab: :nodes do
-      it "yields 3 times" do
+      it "yields 2 times" do
         subject.each_surface {|surface| tests.push surface }
-        expect(tests).to have(3).yielded_items
+        expect(tests).to have(2).yielded_items
       end
 
       it "yields each surface" do
         subject.each_surface {|surface| tests.push surface }
-        expect(tests).to eq ["test", "string", ""]
+        expect(tests).to eq ["test", "string"]
       end
     end
   end

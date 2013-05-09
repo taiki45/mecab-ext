@@ -7,12 +7,11 @@ module Mecab
         @generator = generator
       end
 
-      # TODO: don't yield empty string
       def each
         node = @generator.call
         while node
           node = node.next
-          yield node if node && node != ""
+          yield node if node.respond_to?(:surface) && !node.surface.empty?
         end
         self
       end
