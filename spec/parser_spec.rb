@@ -36,7 +36,7 @@ describe Mecab::Ext::Parser do
 
   describe ".parse_to_node" do
     subject { described_class.method(:parse_to_node) }
-    it { should eq described_class.method(:parse_to_node) }
+    it { should eq described_class.method(:parse) }
   end
 
 end
