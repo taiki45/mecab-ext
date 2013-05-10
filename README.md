@@ -42,6 +42,14 @@ nodes.map {|n| n.surface }.join
 # If you need only surfaces, call Mecab::Ext::Node#each_surface
 nodes.each_surface {|surface| p surface }
 
+# Iterate original node's method returns
+nodes.surfaces.each {|surface| p surface }
+nodes.surfaces.select {|surface| surface == "テスト" }
+
+%w(surfaces features lengths ids char_types isbests wcosts costs).each do |name|
+  nodes.respond_to? name #=> true
+end
+
 # mecab-ext cuts beginning of line node and end of line node for handiness
 nodes.count #=> 2
 ```
