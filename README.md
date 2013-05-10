@@ -31,6 +31,7 @@ MeCab #=> for original ruby-mecab
 nodes = Mecab::Ext::Parser.parse("テスト文章")
 nodes.class #=> Mecab::Ext::Node
 
+
 # Call Mecab::Ext::Node#each to get each MeCab::Node object
 nodes.each {|node| p node }
 
@@ -49,6 +50,13 @@ nodes.surfaces.select {|surface| surface == "テスト" }
 %w(surfaces features lengths ids char_types isbests wcosts costs).each do |name|
   nodes.respond_to? name #=> true
 end
+
+
+# This gem solved original mecab's Node overridden problem
+n1 = Mecab::Ext::Parser.parse "今日の天気"
+n2 = Mecab::Ext::Parser.parse "赤い花"
+n1.each_surface(&:display)
+n2.each_surface(&:display)
 
 # mecab-ext cuts beginning of line node and end of line node for handiness
 nodes.count #=> 2
