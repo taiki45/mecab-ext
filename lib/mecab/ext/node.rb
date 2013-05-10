@@ -22,7 +22,7 @@ module Mecab
         each {|node| yield node.feature }
       end
 
-      %w(surfaces features length ids char_types isbests wcosts costs).each do |plural_name|
+      %w(surfaces features lengths ids char_types isbests wcosts costs).each do |plural_name|
         define_method(plural_name) do
           gen_enumrator(plural_name.singularize)
         end
@@ -35,8 +35,9 @@ module Mecab
           node = @generator.call
           while node
             node = node.next
-            out = name ? node.__send__(name) : node
-            y << out if node.respond_to?(:surface) && !node.surface.empty?
+            unless node.nil? || node.surface.empty?
+              y << (name ? node.__send__(name) : node)
+            end
           end
           self
         end

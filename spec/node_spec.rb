@@ -53,7 +53,10 @@ describe Mecab::Ext::Node do
     end
 
     context "with node mocks" do
-      let(:node) { mock("node").tap {|o| o.stub(:next).and_return(nil) } }
+      let(:node) do
+        n = mock("node").tap {|o| o.stub(:next).and_return(nil) }
+        n.tap {|o| o.should_receive(:surface).and_return("test") }
+      end
       let(:parent_node) { mock("node").tap {|o| o.should_receive(:next).and_return(node) } }
       let(:generator) { double("generator").tap {|o| o.stub(:call).and_return(parent_node) } }
       subject { described_class.new(generator) }
@@ -93,7 +96,8 @@ describe Mecab::Ext::Node do
 
       it "yields each surface" do
         subject.each_surface {|surface| tests.push surface }
-        expect(tests).to eq ["test", "string"]
+        expect(tests).to be_include "test"
+        expect(tests).to be_include "string"
       end
     end
   end
@@ -107,8 +111,45 @@ describe Mecab::Ext::Node do
 
       it "yields each features" do
         subject.each_feature {|feature| tests.push feature }
-        expect(tests).to eq ["test feature", "string feature"]
+        expect(tests).to be_include "test feature"
+        expect(tests).to be_include "string feature"
       end
+    end
+  end
+
+  describe "its plural methods" do
+    context %(with mecab nodes which given "test string"), mecab: :nodes do
+
+      describe "#surfaces" do
+        it "returns enumerator" do
+          expect(subject.surfaces).to be_instance_of Enumerator
+        end
+
+        it "iterates nodes surfaces" do
+          subject.surfaces.each {|surface| tests.push surface }
+          expect(tests).to have(2).surfaces
+          expect(tests).to be_include "test"
+          expect(tests).to be_include "string"
+        end
+
+        it "can fold" do
+          expect(subject.surfaces.reduce("", &:+)).to eq "teststring"
+        end
+      end
+
+      %w(features lengths ids char_types isbests wcosts costs).each do |name|
+        describe "##{name}" do
+          it "iterates #{name}" do
+            expect(subject.send(name)).to be_instance_of Enumerator
+          end
+
+          it "iterates #{name.singularize} value" do
+            second_node.stub(name.singularize).and_return(:test)
+            subject.send(name) {|test| expect(test).to equal :test }
+          end
+        end
+      end
+
     end
   end
 
