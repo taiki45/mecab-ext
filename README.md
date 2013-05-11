@@ -1,4 +1,4 @@
-# mecab-ext [![Build Status](https://travis-ci.org/taiki45/mecab-ext.png?branch=master)](https://travis-ci.org/taiki45/mecab-ext) [![Gem Version](https://badge.fury.io/rb/mecab-ext.png)](http://badge.fury.io/rb/mecab-ext)
+# mecab-ext [![Build Status](https://travis-ci.org/taiki45/mecab-ext.png?branch=master)](https://travis-ci.org/taiki45/mecab-ext) [![Coverage Status](https://coveralls.io/repos/taiki45/mecab-ext/badge.png?branch=master)](https://coveralls.io/r/taiki45/mecab-ext?branch=master) [![Gem Version](https://badge.fury.io/rb/mecab-ext.png)](http://badge.fury.io/rb/mecab-ext)
 A handy extensions for mecab-ruby.
 
 ## Installation
