@@ -72,7 +72,7 @@ describe Mecab::Ext::Node do
 
     context %(with mecab nodes which given "test string"), mecab: :nodes do
       it "yields nodes" do
-        subject.each {|node| expect(node).to be_instance_of RSpec::Mocks::Mock }
+        subject.each {|node| expect(node).to be_a RSpec::Mocks::Mock }
       end
 
       it "yields 2 nodes" do
@@ -122,7 +122,7 @@ describe Mecab::Ext::Node do
 
       describe "#surfaces" do
         it "returns enumerator" do
-          expect(subject.surfaces).to be_instance_of Enumerator
+          expect(subject.surfaces).to be_a Enumerator
         end
 
         it "iterates nodes surfaces" do
@@ -140,7 +140,7 @@ describe Mecab::Ext::Node do
       %w(features lengths ids char_types isbests wcosts costs).each do |name|
         describe "##{name}" do
           it "iterates #{name}" do
-            expect(subject.send(name)).to be_instance_of Enumerator
+            expect(subject.send(name)).to be_a Enumerator
           end
 
           it "iterates #{name.singularize} value" do

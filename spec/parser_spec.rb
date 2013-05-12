@@ -6,22 +6,22 @@ describe Mecab::Ext::Parser do
     subject { described_class.parse("test string") }
 
     it "should return Node instance" do
-      expect(subject).to be_instance_of Mecab::Ext::Node
+      should be_a Mecab::Ext::Node
     end
 
     it "should call Node.new" do
-      Mecab::Ext::Node.stub(:new).and_return("called")
-      expect(subject).to eq "called"
+      Mecab::Ext::Node.stub(:new).and_return(:called)
+      should be :called
     end
 
     it "should pass proc to Node#initialize" do
       Mecab::Ext::Node.should_receive(:new) do |arg|
-        expect(arg).to be_instance_of Proc
+        expect(arg).to be_a Proc
       end
       subject
     end
 
-    it "should pass callable obj" do
+    it "should pass callable obj to Node.new" do
       Mecab::Ext::Node.should_receive(:new) do |arg|
         expect(arg).to be_respond_to :call
       end
