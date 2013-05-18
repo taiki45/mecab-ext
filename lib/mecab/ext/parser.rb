@@ -2,8 +2,9 @@ module Mecab
   module Ext
     module Parser
       class << self
+        @@tagger = nil
         def parse(str)
-          generator = lambda { ::MeCab::Tagger.new.parseToNode(str) }
+          generator = lambda { (@@tagger ||= MeCab::Tagger.new).parseToNode(str) }
           Node.new(generator)
         end
 
